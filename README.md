@@ -343,6 +343,8 @@ sudo luarocks install perimeterx-nginx-plugin
   sudo systemctl enable nginx.service
   ```
 
+Once the the installation is complete, you can begin [configuring](configuration) the PerimeterX Plugin.
+
 ### <a name="installation_nginxplus_px"></a>Installing the PerimeterX NGINX Plugin for NGINX+
 
 If you are already using NGINX+, the following steps cover installing the NGINX+ Lua Module and the PermimeterX NGINX Plugin.
