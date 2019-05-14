@@ -26,7 +26,7 @@
   * [PerimeterX enforcement](#nginx_perimeterx_enforcement)
   * [NGINX.conf Example](#nginx_config_example)
 
-## [Configuration](#configuration)
+## [Configuration](#main_configuration)
 * [Required Configuration](#perimterx_required_parameters)
 * [First-Party Configuration](#first_party_config)
   * [First-Party Mode](#first-party)
@@ -350,7 +350,7 @@ If you are already using NGINX+, the following steps cover installing the NGINX+
 * [RHEL 7.4 and higher](NGINXPLUS_RHEL7.4.md)
 * [Amazon Linux, CentOS and RHEL 7.3 and lower](NGINXPLUS.md)
 
-## <a name="configuration"></a>Configuration
+## <a name="main_configuration"></a>Configuration
 
 **Initial Configuration**
 
