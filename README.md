@@ -360,7 +360,7 @@ After installing the PerimeterX NGINX Lua Plugin:
 
 *then*
 
-- [Configure the PerimeterX Plugin](px_configuration). This should include all the [required configuration parameters](perimterx_required_parameters) and any of the [Optional Configurations](advanced_configuration).
+- [Configure the PerimeterX Plugin](#px_configuration). This should include all the [required configuration parameters](#perimterx_required_parameters) and any of the [Optional Configurations](#advanced_configuration).
 
 > The NGINX Configuration Requirements must be completed before configuring the PerimeterX Plugin.
 
