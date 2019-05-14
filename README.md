@@ -171,6 +171,8 @@ sudo luarocks install lua-resty-nettle
 sudo no_proxy=1 luarocks install perimeterx-nginx-plugin
 ```
 
+###### You can now [Configure](#main_configuration) the PerimeterX NGINX Plugin.
+
 ##
 ### <a name="ubuntu1604"></a>Ubuntu 16.04 and Higher
 
@@ -211,6 +213,8 @@ sudo apt-get -y install libluajit-5.1-dev
 ```sh
 luarocks install perimeterx-nginx-plugin
 ```
+
+###### You can now [Configure](#main_configuration) the PerimeterX NGINX Plugin.
 
 ##
 ### <a name="centos7"></a>Installing with CentOS 7
@@ -342,6 +346,8 @@ sudo luarocks install perimeterx-nginx-plugin
   sudo systemctl start nginx.service 
   sudo systemctl enable nginx.service
   ```
+  
+###### You can now [Configure](#main_configuration) the PerimeterX NGINX Plugin.
 
 ### <a name="installation_nginxplus_px"></a>Installing the PerimeterX NGINX Plugin for NGINX+
 
@@ -349,6 +355,8 @@ If you are already using NGINX+, the following steps cover installing the NGINX+
 
 * [RHEL 7.4 and higher](NGINXPLUS_RHEL7.4.md)
 * [Amazon Linux, CentOS and RHEL 7.3 and lower](NGINXPLUS.md)
+
+###### You can now [Configure](#main_configuration) the PerimeterX NGINX Plugin.
 
 ## <a name="main_configuration"></a>Configuration
 
