@@ -354,13 +354,13 @@ If you are already using NGINX+, the following steps cover installing the NGINX+
 
 **Initial Configuration**
 
-When installing and configuring the PerimeterX NGINX Lua Plugin for the first time:
+After installing the PerimeterX NGINX Lua Plugin:
 
 - [Configure NGINX](#nginx_configuration) to support the PerimeterX NGINX Lua Plugin.
 
 *then*
 
-- [Configure the PerimeterX Plugin](px_configuration). This should include all the [required configuration parameters](perimterx_required_parameters).
+- [Configure the PerimeterX Plugin](px_configuration). This should include all the [required configuration parameters](perimterx_required_parameters) and any of the [Optional Configurations](advanced_configuration).
 
 > The NGINX Configuration Requirements must be completed before configuring the PerimeterX Plugin.
 
