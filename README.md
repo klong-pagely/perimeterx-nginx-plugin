@@ -343,8 +343,6 @@ sudo luarocks install perimeterx-nginx-plugin
   sudo systemctl enable nginx.service
   ```
 
-Once the the installation is complete, you can begin [configuring](#configuration) the PerimeterX Plugin.
-
 ### <a name="installation_nginxplus_px"></a>Installing the PerimeterX NGINX Plugin for NGINX+
 
 If you are already using NGINX+, the following steps cover installing the NGINX+ Lua Module and the PermimeterX NGINX Plugin.
@@ -353,6 +351,22 @@ If you are already using NGINX+, the following steps cover installing the NGINX+
 * [Amazon Linux, CentOS and RHEL 7.3 and lower](NGINXPLUS.md)
 
 ## <a name="configuration"></a>Configuration
+
+**Initial Configuration**
+
+When installing and configuring the PerimeterX NGINX Lua Plugin for the first time:
+
+- [Configure NGINX](#nginx_configuration) to support the PerimeterX NGINX Lua Plugin.
+
+*then*
+
+- [Configure the PerimeterX Plugin](px_configuration). This should include all the [required configuration parameters](perimterx_required_parameters).
+
+> The NGINX Configuration Requirements must be completed before configuring the PerimeterX Plugin.
+
+**Advanced Configuration**
+
+Once the PerimeterX NGINX Lua Plugin is installed, and the required configuration is done, configuration can continue or be modified as necessary.
 
 ### <a name="nginx_configuration"></a>Required NGINX Configuration
 The following NGINX Configurations are required to support the PerimeterX NGINX Lua Plugin:
@@ -448,9 +462,7 @@ The following NGINX Configurations are required to support the PerimeterX NGINX 
   }
   ```
 
-> NOTE: The NGINX Configuration Requirements must be completed before proceeding to the next stage of installation.
-
-### <a name="configuration"></a>PerimeterX Plugin Configuration
+### <a name="px_configuration"></a>PerimeterX Plugin Configuration
 
 #### <a name="perimterx_required_parameters"></a>Required Configuration:
 The following configurations are set in:
