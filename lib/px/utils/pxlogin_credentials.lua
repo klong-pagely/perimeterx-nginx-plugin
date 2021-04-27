@@ -73,7 +73,7 @@ function M.load(px_config)
 
     function _M.creds_extract_from_body_json(ci)
         -- force Nginx to read body data
-        px_logger.debug("creds_extract_from_body_json")
+        px_logger.debug("creds_extract_from_body_json (reading body in next line)")
         ngx.req.read_body()
         local data = ngx.req.get_body_data()
         if not data then
@@ -126,6 +126,7 @@ function M.load(px_config)
 
         local field_name = "none"
         while true do
+            px_logger.debug("reading from form")
             local t, res, err = form:read()
             if not t then
                 return nil
@@ -164,7 +165,7 @@ function M.load(px_config)
 
     function _M.creds_extract_from_body_form_urlencoded(ci)
         -- force Nginx to read body data
-        px_logger.debug("creds_extract_from_body_form_urlencoded")
+        px_logger.debug("creds_extract_from_body_form_urlencoded (reading body in next line)")
         ngx.req.read_body()
         local args, err = ngx.req.get_post_args()
 

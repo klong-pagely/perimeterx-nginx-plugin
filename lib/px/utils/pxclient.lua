@@ -73,6 +73,7 @@ function M.load(px_config)
         end
 
         -- Must read the response body to clear the buffer in order for set keepalive to work properly.
+        px_logger("pxclient Must read the response body to clear the buffer in order for set keepalive to work properly.")
         local body = res:read_body()
 
         -- set keepalive to ensure connection pooling

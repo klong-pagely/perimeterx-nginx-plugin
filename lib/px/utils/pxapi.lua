@@ -201,6 +201,7 @@ function M.load(px_config)
             px_logger.debug("POST response status: " .. res.status)
         end
 
+        px_logger.debug("pxapi:      local body = cjson.decode(res:read_body())        ")
         local body = cjson.decode(res:read_body())
 
         -- set keepalive to ensure connection pooling
