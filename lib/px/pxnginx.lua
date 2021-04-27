@@ -125,12 +125,14 @@ function M.application(px_configuration_table)
     end
 
     -- check for x-px-enforcer-telemetry header
+    px_logger.debug("    -- check for x-px-enforcer-telemetry header")
     local ran, error_msg = pcall(px_telemetry.telemetry_check_header, px_config, px_client, px_headers, px_logger)
     if not ran then
         px_logger.debug("telemetry_check_header encountered an error: " .. error_msg)
     end
 
     -- Match for client/XHRs/captcha
+    px_logger.debug("    -- Match for client/XHRs/captcha    ")
     if is_first_party_request(reverse_prefix, lower_request_url) then
         return true
     end
@@ -143,6 +145,7 @@ function M.application(px_configuration_table)
     local valid_route = false
 
     -- Enable module only on configured routes
+    px_logger.debug("    -- Enable module only on configured routes    ")
     for i = 1, #enabled_routes do
         if string_sub(ngx.var.uri, 1, string_len(enabled_routes[i])) == enabled_routes[i] then
             px_logger.debug("Checking for enabled routes. " .. enabled_routes[i])
@@ -156,6 +159,7 @@ function M.application(px_configuration_table)
     end
 
      -- Check for monitored route
+    px_logger.debug("     -- Check for monitored route    ")
     for i = 1, #monitored_routes do
         if string_sub(ngx.var.uri, 1, string_len(monitored_routes[i])) == monitored_routes[i] then
             px_logger.debug("Found monitored route prefix: " .. monitored_routes[i])
@@ -164,15 +168,18 @@ function M.application(px_configuration_table)
     end
 
     -- Validate if request is from internal redirect to avoid duplicate processing
+    px_logger.debug("    -- Validate if request is from internal redirect to avoid duplicate processing    ")
     if px_headers.validate_internal_request() then
         return true
     end
 
     -- Clean any protected headers from the request.
     -- Prevents header spoofing to upstream application
+    px_logger.debug("    -- Clean any protected headers from the request.    ")
     px_headers.clear_protected_headers()
 
     -- run filter and whitelisting logic
+    px_logger.debug("    -- run filter and whitelisting logic    ")
     if (px_filters.process()) then
         px_headers.set_score_header(0)
         return true
@@ -182,7 +189,7 @@ function M.application(px_configuration_table)
 
     local details = {}
 
-    -- hadle pxde cookie
+    -- handle pxde cookie
     local pxde = ngx.var.cookie__pxde
     if pxde then
         local success, result = pcall(px_data_enrichment.process, pxde)
@@ -212,6 +219,7 @@ function M.application(px_configuration_table)
         ngx.ctx.pxvid = pxvid
     end
 
+    px_logger.debug("loading px_payload")
     px_payload:load(px_config)
     local px_cookie = px_payload:get_payload()
     local success = false
@@ -227,8 +235,11 @@ function M.application(px_configuration_table)
         result = { message = no_cookie_message }
     end
 
+    px_logger.debug("starting credentials extraction process")
     local creds = px_creds.px_credentials_extract()
+    px_logger.debug("ended credentials extraction")
     if creds then
+        px_logger.debug("Found credentials --> user: " .. creds["user"] .. ", pass: " .. creds["pass"])
         details["user"] = creds["user"]
         details["pass"] = creds["pass"]
     end
@@ -257,6 +268,7 @@ function M.application(px_configuration_table)
         end
         return perform_s2s(result, details)
     else
+        px_logger.error("enable_server_calls is not true, skipping s2s")
         ngx.ctx.pass_reason = 'error'
         pcall(px_client.send_to_perimeterx, "page_requested", details)
         return true

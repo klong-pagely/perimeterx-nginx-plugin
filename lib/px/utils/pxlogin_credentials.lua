@@ -16,6 +16,7 @@ function M.load(px_config)
 
     -- return table with hashed username and password
     function _M.creds_encode(user, pass)
+        px_logger.debug("creds_encode")
         local creds = {}
         local user_hash = sha2.sha256.new()
         user_hash:update(user)
@@ -30,6 +31,7 @@ function M.load(px_config)
     -- extract login information from a table
     -- return table or nil
     function _M.creds_extract_from_table(ci, t)
+        px_logger.debug("creds_extract_from_table")
         local user = nil
         local pass = nil
         for k, v in pairs(t) do
@@ -48,6 +50,7 @@ function M.load(px_config)
     end
 
     function _M.creds_extract_from_headers(ci)
+        px_logger.debug("creds_extract_from_headers")
         local user = px_headers.get_header(ci.user_field)
         local pass = px_headers.get_header(ci.pass_field)
 
@@ -59,6 +62,7 @@ function M.load(px_config)
     end
 
     function _M.creds_extract_from_query(ci)
+        px_logger.debug("creds_extract_from_query")
         local params = ngx.req.get_uri_args()
         if not params then
             return nil
@@ -69,6 +73,7 @@ function M.load(px_config)
 
     function _M.creds_extract_from_body_json(ci)
         -- force Nginx to read body data
+        px_logger.debug("creds_extract_from_body_json")
         ngx.req.read_body()
         local data = ngx.req.get_body_data()
         if not data then
@@ -86,6 +91,7 @@ function M.load(px_config)
 
     -- parse lines similar to:  form-data; name1=val1; name2=val2
     local function decode_content_disposition(value)
+        px_logger.debug("decode_content_disposition")
         local result
         local disposition_type, params = string.match(value, "([%w%-%._]+);(.+)")
         if disposition_type then
@@ -106,6 +112,7 @@ function M.load(px_config)
 
     function _M.creds_extract_from_body_formdata(ci)
         -- maximal POST field size to read
+        px_logger.debug("creds_extract_from_body_formdata")
         local chunk_size = 4096
         local form, err = upload:new(chunk_size)
         if not form then
@@ -148,7 +155,8 @@ function M.load(px_config)
         end
 
         if user and pass then
-             return _M.creds_encode(user, pass)
+            px_logger.debug("received user and pass")
+            return _M.creds_encode(user, pass)
         end
 
         return nil
@@ -156,6 +164,7 @@ function M.load(px_config)
 
     function _M.creds_extract_from_body_form_urlencoded(ci)
         -- force Nginx to read body data
+        px_logger.debug("creds_extract_from_body_form_urlencoded")
         ngx.req.read_body()
         local args, err = ngx.req.get_post_args()
 
@@ -168,6 +177,7 @@ function M.load(px_config)
 
     function _M.creds_extract_from_body(ci)
         -- JSON body type
+        px_logger.debug("creds_extract_from_body")
         if ci.content_type == "json" then
             return _M.creds_extract_from_body_json(ci)
         elseif ci.content_type == "form-data" then
@@ -182,6 +192,7 @@ function M.load(px_config)
     -- extract login information from client request
     -- return table or nil
     function _M.px_credentials_extract()
+        px_logger.debug("px_credentials_extract")
         if px_config.creds == nil then
             return nil
         end
@@ -238,6 +249,7 @@ function M.load(px_config)
     if not success then
         px_logger.error("Could not decode login credentials JSON file")
     else
+        px_logger.debug("Successfully decoded login credentials JSON file")
         px_config.creds = creds_json.features.credentials.items
     end
 
